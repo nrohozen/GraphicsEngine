@@ -20,10 +20,6 @@ public class Actor
 	private ArrayList<Behaviors> behaviors = new ArrayList<Behaviors>();
 	private State state = new State();
 	
-	public boolean isAlive()
-	{
-		return exists;
-	}
 
 	public void add (Shape shape)
 	{

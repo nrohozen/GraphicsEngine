@@ -1,3 +1,4 @@
+import java.awt.Font;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -12,6 +13,7 @@ import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLException;
 import javax.media.opengl.glu.GLU;
 
+import com.jogamp.opengl.util.awt.TextRenderer;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
 
@@ -24,11 +26,13 @@ public class ThreeDView implements View
 	private Texture cobbles;
 	private Texture brick;
 	private Texture grass;
-	
+	//private TextRenderer renderer;
+	//private String text = "Testing Text";
 	private Model model;
 	
 	private double x;
 	private double y;
+
 	
 	public ThreeDView (double x, double y)
 	{
@@ -39,7 +43,7 @@ public class ThreeDView implements View
 	public void init(GLAutoDrawable drawable, Model model) 
 	{
 		this.model = model;
-		
+	//	renderer = new TextRenderer(new Font("SansSerif", Font.BOLD, 36));
 		eyeLocation[0] = 0.0;
 		eyeLocation[1] = 0.0;
 		eyeLocation[2] = 0.0;
@@ -63,7 +67,6 @@ public class ThreeDView implements View
         GL2 gl = drawable.getGL().getGL2();
 		GLU glu = new GLU ();
 		
-		
 		gl.glMatrixMode(GL2.GL_MODELVIEW);
 		gl.glLoadIdentity();
         //gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
@@ -76,15 +79,24 @@ public class ThreeDView implements View
     	gl.glClearDepth(1.0);
 		gl.glViewport(0,0, 100, 100);
 		*/
-	
 		
-
+		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
+		glu.gluPerspective(90, ((double)250)/((double)250), 0.1, 100.0);
+		
+		gl.glViewport(0, 0, 500, 500);
+		
 		
 		// Set camera position
 		glu.gluLookAt(model.getPlayerX(), model.getPlayerY(), model.getPlayerZ(), 
 				  model.getPlayerXLookAt(), model.getPlayerYLookAt(), model.getPlayerZLookAt(),
 				  0.0, 1.0, 0.0);	
-		
+		/*
+		// Clip to view coords
+		gl.glEnable(GL2.GL_SCISSOR_TEST);
+		gl.glScissor(250, 250, 250, 250);
+		*/
+
+
 		// And handle mouse clicks
 /*		if (mouseClicked)
 		{
@@ -294,5 +306,12 @@ public class ThreeDView implements View
 		}
 		
 		throw new RuntimeException ("getTexture called with invalid material");
+	}
+
+	@Override
+	public void display(GLAutoDrawable drawable) {
+		// TODO Auto-generated method stub
+		render (drawable);
+		
 	}
 }

@@ -19,15 +19,15 @@
  *  even with complex worlds.  
  */
 
-public class Exercise3 
+public class Run 
 {
 	private Model model;
 	private OpenGLView view;
 	
 	public static void main(String[] args) 
 	{
-		Exercise3 e3 = new Exercise3 ();
-		e3.go ();
+		Run go = new Run();
+		go.go ();
 	}
 	
 	public void go ()

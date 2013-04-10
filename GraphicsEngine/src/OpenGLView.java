@@ -1,3 +1,4 @@
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -17,6 +18,7 @@ import javax.media.opengl.awt.GLCanvas;
 import javax.media.opengl.glu.GLU;
 
 import com.jogamp.opengl.util.FPSAnimator;
+import com.jogamp.opengl.util.awt.TextRenderer;
 
 
 public class OpenGLView  implements GLEventListener, KeyListener, MouseListener
@@ -47,11 +49,11 @@ public class OpenGLView  implements GLEventListener, KeyListener, MouseListener
         GLCapabilities caps = new GLCapabilities(glp);
         GLCanvas canvas = new GLCanvas(caps);
         
-        Frame frame = new Frame("JOGL Skeleton");
+        Frame frame = new Frame("Game Engine");
 
         frame.setLayout(null);
-        frame.setSize(300, 300);
-        frame.add(canvas).setBounds(0, 0, 300, 300);
+        frame.setSize(500, 500);
+        frame.add(canvas).setBounds(0, 0, 500, 500);
         frame.setVisible(true);
 
         frame.addWindowListener(new WindowAdapter() {
@@ -78,9 +80,14 @@ public class OpenGLView  implements GLEventListener, KeyListener, MouseListener
         GL2 gl = drawable.getGL().getGL2();
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
         
+
+		
+	
+        
 		for (int i = 0; i < views.size(); i++)
 		{
-			views.get(i).render(drawable);
+			//views.get(i).render(drawable);
+			views.get(i).display(drawable);
 			gl.glFlush();
 		}
 	}
@@ -119,7 +126,7 @@ public class OpenGLView  implements GLEventListener, KeyListener, MouseListener
 		gl.glViewport(0, 0, width, height);
 		gl.glMatrixMode(GL2.GL_PROJECTION);
 		gl.glLoadIdentity();
-		glu.gluPerspective(90, ((double)width)/((double)height), 0.1, 100.0);
+		//glu.gluPerspective(90, ((double)width)/((double)height), 0.1, 100.0);
 		gl.glMatrixMode(GL2.GL_MODELVIEW);
 		gl.glLoadIdentity();
 	}

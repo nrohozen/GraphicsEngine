@@ -13,22 +13,25 @@ import java.util.Collections;
 
 public class Model 
 {
-	private enum Facing {North, South, East, West}
+	private String fileLocation = "//users//nrohozen//git//GraphicsEngine//GraphicsEngine//";
 
 	private ArrayList<Actor> objects = new ArrayList<Actor> ();
 	private ArrayList<Event> events = new ArrayList<Event>();
 	private ArrayList<Behaviors> behaviors = new ArrayList<Behaviors>();
 	EventManager eventManager = new EventManager();
+	//KeyboardInput key = new KeyboardInput();
 	
 	private double [] playerPosition = new double [3];
 	private double [] playerLookAt = new double [3];
-	private Facing facing = Facing.North;
 
 	private static final int JUMP_TIME = 10;
 	private static final double JUMP_INC = 0.01;
 	
 	private int goingUp = 0;
 	private int goingDown = 0;
+	
+	private enum Facing {North, South, East, West}
+	private Facing facing = Facing.North;
 
 	
 	public Model ()
@@ -42,22 +45,20 @@ public class Model
 		//loadEvents();
 		loadWorld();
 
-		playerPosition[0] = 0.0;
+		playerPosition[0] = 0.5;
 		playerPosition[1] = 0.5;
-		playerPosition[2] = 0;
+		playerPosition[2] = -0.5;
 		
-		playerLookAt[0] = 0.0;
+		playerLookAt[0] = 0.5;
 		playerLookAt[1] = 0.5;
-		playerLookAt[2] = -1;
+		playerLookAt[2] = -1.5;
 		
 		
 	}
-
+	
 	public void key (char c)
 	{
-		if (c == ' ' && goingUp == 0 && goingDown == 0)
-			goingUp = JUMP_TIME;
-		
+		//key.key(c);
 		if (c == 'w')
 		{
 			switch (facing)
@@ -331,6 +332,10 @@ public class Model
 		return Collections.unmodifiableCollection(objects);
 	}
 	
+	public void addActor(Actor actor)
+	{
+		objects.add(actor);
+	}
 	public double getPlayerX ()
 	{
 		return playerPosition[0];
@@ -388,6 +393,18 @@ public class Model
 		behaviors.add(explode);
 		behaviors.add(detonate);
 	}
+	
+	public Facing getFacing()
+	{
+		return facing;
+		
+	}
+	
+	public void setFacing()
+	{
+		
+	}
+	
 	public void loadWorld()
 	{
 		ArrayList<Shape> shape = new ArrayList<Shape>();
@@ -397,7 +414,8 @@ public class Model
 		boolean firstRun = true;
 		try 
 		{
-			File dir = new File("//users//nrohozen//Documents//workspace//GraphicsEngine//");
+			File dir = new File(fileLocation);
+	
 			for (String fn : dir.list()) 
 			{
 				if(fn.endsWith(".in"))
@@ -517,6 +535,7 @@ public class Model
 			e.printStackTrace();
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
+			System.out.println("I need to fix this block of code but if its throwing a NumberFormat Exception it probably can't find the 3d object files.");
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
