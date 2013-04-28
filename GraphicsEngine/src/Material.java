@@ -4,7 +4,8 @@ public enum Material
 	None,
 	Brick,
 	Cobbles,
-	Grass
-	
+	Grass, 
+	Stainless,
+	BlueWall
 
 }

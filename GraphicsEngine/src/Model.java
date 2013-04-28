@@ -23,12 +23,14 @@ public class Model
 	
 	private double [] playerPosition = new double [3];
 	private double [] playerLookAt = new double [3];
+	private Point playerPointPos;
 
 	private static final int JUMP_TIME = 10;
 	private static final double JUMP_INC = 0.01;
 	
 	private int goingUp = 0;
 	private int goingDown = 0;
+	
 	
 	private enum Facing {North, South, East, West}
 	private Facing facing = Facing.North;
@@ -46,12 +48,12 @@ public class Model
 		loadWorld();
 
 		playerPosition[0] = 0.5;
-		playerPosition[1] = 0.5;
-		playerPosition[2] = -0.5;
-		
+		playerPosition[1] = 0.25;
+		playerPosition[2] = -1.25;
+		playerPointPos = new Point(playerPosition[0], playerPosition[1], playerPosition[2]);
 		playerLookAt[0] = 0.5;
-		playerLookAt[1] = 0.5;
-		playerLookAt[2] = -1.5;
+		playerLookAt[1] = 0.25;
+		playerLookAt[2] = -1.50;
 		
 		
 	}
@@ -59,30 +61,75 @@ public class Model
 	public void key (char c)
 	{
 		//key.key(c);
+
+		if (c == 'm')
+		{
+			System.out.print("X: " + getPlayerX() + " ");
+			System.out.print("Y: " + getPlayerY() + " ");
+			System.out.println("Z: " + getPlayerZ());
+		}
+		if (c == 'i')
+		{
+			for(int i = 0; i < objects.size(); i++)
+			{
+				if(objects.get(i).getName() != null)
+				{
+					System.out.println(objects.get(i).getName());
+					System.out.print(objects.get(i).getX() + " ");
+					System.out.print(objects.get(i).getY() + " ");
+					System.out.println(objects.get(i).getY());
+					
+					System.out.print(objects.get(i).getxRot() + " ");
+					System.out.print(objects.get(i).getyRot() + " ");
+					System.out.println(objects.get(i).getzRot());
+					
+					System.out.println("Rotation: " + objects.get(i).getRotation());
+					
+					
+			
+				}
+			}
+		}
 		if (c == 'w')
 		{
-			switch (facing)
+			/*for(int i = 0; i < objects.size(); i++)
 			{
-				case North:
-					playerPosition[2]-=0.25;
-					playerLookAt[2]=playerPosition[2]-1;
-					break;
+				if(objects.get(i).getName() != null)
+				{
+					System.out.println("Distance: " + playerPointPos.getDistance(objects.get(i).getPoint()));
 					
-				case South:
-					playerPosition[2]+=0.25;
-					playerLookAt[2]=playerPosition[2]+1;
-					break;
-					
-				case East:
-					playerPosition[0]+=0.25;
-					playerLookAt[0]=playerPosition[0]+1;
-					break;
-					
-				case West:
-					playerPosition[0]-=0.25;
-					playerLookAt[0]=playerPosition[0]-1;
-					break;
-			}
+					if(playerPointPos.getDistance(objects.get(i).getPoint()) <= 1.1)
+					{
+						System.out.println("Collsion!");
+					}
+					else
+					{*/
+						switch (facing)
+						{
+						case North:
+							playerPosition[2]-=0.25;
+							playerLookAt[2]=playerPosition[2]-1;
+							break;
+							
+						case South:
+							playerPosition[2]+=0.25;
+							playerLookAt[2]=playerPosition[2]+1;
+							break;
+							
+						case East:
+							playerPosition[0]+=0.25;
+							playerLookAt[0]=playerPosition[0]+1;
+							break;
+							
+						case West:
+							playerPosition[0]-=0.25;
+							playerLookAt[0]=playerPosition[0]-1;
+							break;
+					}
+			/*		}
+				}
+			}*/
+			
 		}
 		
 		if (c == 's')
@@ -91,7 +138,7 @@ public class Model
 			{
 				case North:
 					playerPosition[2]+=0.25;
-					playerLookAt[2]=playerPosition[2]-1;
+					playerLookAt[2]=playerPosition[2] += -0.25;
 					break;
 					
 				case South:
@@ -196,10 +243,22 @@ public class Model
 					break;
 			}
 		}
-		if(c == 'x')
+		if(c == ' ')
 		{
-			Event detonate = new Event("Detonate");
-			events.add(detonate);
+			System.out.println("start: "  + playerPosition[1]);
+			System.out.println("fired");
+			playerPosition[1] += 1;
+			playerLookAt[1] = playerPosition[1];
+			double startTime = System.currentTimeMillis();
+			double totalTime = System.currentTimeMillis() - startTime;
+			while(totalTime < 1000)
+			{
+				totalTime = System.currentTimeMillis() - startTime;
+				///System.out.println("Total Time" + totalTime);
+				//System.out.println(playerPosition[1]);
+			}
+			playerPosition[1]-= 1;
+			playerLookAt[1]=playerPosition[1];
 		}
 
 		if (c == 'e')
@@ -249,6 +308,9 @@ public class Model
 			if (goingUp == 0)
 				goingDown = JUMP_TIME;
 		}
+		playerPointPos.setX(playerPosition[0]);
+		playerPointPos.setY(playerPosition[1]);
+		playerPointPos.setZ(playerPosition[2]);
 	}
 	
 	public void mouseClicked (double [] p1a, double [] p2a)
@@ -458,6 +520,18 @@ public class Model
 							{
 								shape.get(i).setMaterial(Material.Grass);
 							}
+							if(material.matches("Cobbles"))
+							{
+								shape.get(i).setMaterial(Material.Cobbles);
+							}
+							if(material.matches("Stainless"))
+							{
+								shape.get(i).setMaterial(Material.Stainless);
+							}
+							if(material.matches("BlueWall"))
+							{
+								shape.get(i).setMaterial(Material.BlueWall);
+							}
 						}
 						if(line.charAt(0) == 'f')   
 						{
@@ -484,6 +558,19 @@ public class Model
 						if(line.charAt(0) == 'o')
 						{
 							obj.add(new Actor ());
+						}
+						if(line.charAt(0) == 'n')
+						{
+							String name = line.substring(2);
+							obj.get(j).setName(name);
+						}
+						if(line.charAt(0) == 'm')
+						{
+							String[] split = line.split(" ");
+							double x = Double.parseDouble(split[1]);
+							double y = Double.parseDouble(split[2]);
+							double z = Double.parseDouble(split[3]);
+							obj.get(j).setMidPoint(x,y,z);
 						}
 						if(line.charAt(0) == 'A')
 						{

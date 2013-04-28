@@ -14,6 +14,7 @@ import javax.media.opengl.GLException;
 import javax.media.opengl.glu.GLU;
 
 import com.jogamp.opengl.util.awt.TextRenderer;
+import com.jogamp.opengl.util.gl2.GLUT;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
 
@@ -26,6 +27,8 @@ public class ThreeDView implements View
 	private Texture cobbles;
 	private Texture brick;
 	private Texture grass;
+	private Texture stainless;
+	private Texture blueWall;
 	//private TextRenderer renderer;
 	//private String text = "Testing Text";
 	private Model model;
@@ -56,6 +59,8 @@ public class ThreeDView implements View
 			cobbles = loadTexture ("cobbles.jpg");
 			brick = loadTexture ("brick.jpg");
 			grass = loadTexture ("grass.jpg");
+			stainless = loadTexture("stainless.jpg");
+			blueWall = loadTexture("BlueWall.jpg");
 		} catch (Exception e) 
 		{
 			e.printStackTrace();
@@ -95,7 +100,8 @@ public class ThreeDView implements View
 		gl.glEnable(GL2.GL_SCISSOR_TEST);
 		gl.glScissor(250, 250, 250, 250);
 		*/
-
+		
+		//drawLine(drawable);
 
 		// And handle mouse clicks
 /*		if (mouseClicked)
@@ -114,10 +120,24 @@ public class ThreeDView implements View
 			// For each object, we need to first translate to
 			// the object's position, so that shape drawing
 			// happens there.
-			gl.glTranslated(object.getX(), object.getY(), object.getZ());
+	//		gl.glTranslated(object.getX(), object.getY(), object.getZ());
 			
 			// And the object's overall rotation
-			gl.glRotated(object.getRotation(), object.getxRot(), object.getyRot(), object.getzRot());
+	//		gl.glRotated(object.getRotation(), object.getxRot(), object.getyRot(), object.getzRot());
+			/*
+			double[] curmat = new double[16];
+			gl.glGetDoublev(GL2.GL_MODELVIEW_MATRIX, curmat, 0);  //
+		
+				 // Print out the contents of this matrix in OpenGL format
+			
+				System.out.println(object.getName());
+				   System.out.println("as an OpenGL matrix");
+				   for (int row = 0; row < 4; row++)
+				       for (int col = 0; col < 4; col++)
+					   // OpenGL uses column-major order for storage
+					   System.out.format("%7.3f%c", curmat[row+col*4], col==3 ? '\n':' ');
+			*/
+			
 			
 			// Then draw each shape
 			for (Shape shape:object.getShapes())
@@ -300,6 +320,12 @@ public class ThreeDView implements View
 				
 			case Grass:
 				return grass;
+				
+			case BlueWall:
+				return blueWall;
+				
+			case Stainless:
+				return stainless;
 			
 			default:
 				break;
@@ -309,9 +335,23 @@ public class ThreeDView implements View
 	}
 
 	@Override
-	public void display(GLAutoDrawable drawable) {
+	public void display(GLAutoDrawable drawable)
+	{
 		// TODO Auto-generated method stub
 		render (drawable);
+	}
+	private void drawLine(GLAutoDrawable drawable) {
+		GL2 gl = drawable.getGL().getGL2();
+		GLUT glut = new GLUT();
 		
+		glut.glutSolidSphere(10, 20, 20);
+		gl.glBegin (GL.GL_LINES);
+		//gl.glVertex2i (0, 0);
+		//gl.glVertex2i (1, 0);
+		
+		gl.glColor3d(1.0, 0.0, 0.0);
+		gl.glVertex3d(model.getPlayerX(), 0.7, model.getPlayerZ());
+		gl.glVertex3d(0, 0.7, 0);
+		gl.glEnd();
 	}
 }

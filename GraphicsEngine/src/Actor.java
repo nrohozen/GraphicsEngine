@@ -6,21 +6,58 @@ import java.util.HashMap;
 
 public class Actor 
 {
-	private boolean exists;
 	private double x;
 	private double y;
 	private double z;
-	
+	private double midpointX;
+	private double midpointY;
+	private double midpointZ;
 	private double rotation;
 	private double xRot;
 	private double yRot;
 	private double zRot;
+	private Point point;
+	private String name;
 	
 	private ArrayList<Shape> shapes = new ArrayList<Shape> ();
 	private ArrayList<Behaviors> behaviors = new ArrayList<Behaviors>();
 	private State state = new State();
 	
-
+	public String getName()
+	{
+		return name;
+	}
+	
+	public void setMidPoint(double x, double y, double z)
+	{
+		this.midpointX = x;
+		this.midpointY = y;
+		this.midpointZ = z;
+		point = new Point(x, y, z);
+	}
+	public Point getPoint()
+	{
+		return point;
+	}
+	public double getMidPointX()
+	{
+		return midpointX;
+	}
+	public double getMidPointY()
+	{
+		return midpointY;
+	}
+	
+	public double getMidPointZ()
+	{
+		return midpointZ;
+	}
+	
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+	
 	public void add (Shape shape)
 	{
 		shapes.add(shape);

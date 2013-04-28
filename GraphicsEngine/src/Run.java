@@ -22,12 +22,21 @@
 public class Run 
 {
 	private Model model;
-	private OpenGLView view;
+	private OpenGLView view;		
 	
 	public static void main(String[] args) 
 	{
+		//boolean notRan = true;
 		Run go = new Run();
 		go.go ();
+		//SoundEffect.init();
+		//SoundEffect.GONG.play();
+		//System.out.println("WAIT FOR IT!");
+
+		//SoundEffect.EXPLODE.play();
+			
+		
+		
 	}
 	
 	public void go ()
@@ -41,5 +50,10 @@ public class Run
 		view.add(new DebugView ());
 		
 		view.init (model);
+	}
+	
+	public void play()
+	{
+		
 	}
 }

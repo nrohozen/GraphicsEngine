@@ -1,0 +1,28 @@
+p 4
+t Stainless
+f 0 0 0 0
+f 1 0 1 0
+f 2 1 1 0
+f 3 1 0 0
+c 1 0 0 
+o 
+v 0 0 -2
+n side1
+r 0
+d 1 0 0
+o
+v 0 0 -2
+n side2
+r 90
+d 0 1 0
+o
+v 1 0 -2
+n side3
+r 90
+d 0 1 0
+o
+v 0 0 -3
+n side4
+r 0 
+d 0 1 0
+

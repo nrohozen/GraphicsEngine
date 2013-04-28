@@ -1,0 +1,18 @@
+p 4
+t Cobbles
+f 0 0 0 0 
+f 1 0 1 0
+f 2 1 1 0
+f 3 1 0 0
+c 1 0 1 
+o 
+v 2 0 -1
+n Cobbles
+r 0
+d 0 0 0
+o
+v 2 0 -1
+n Cobbles
+r 45
+d 0 1 0
+

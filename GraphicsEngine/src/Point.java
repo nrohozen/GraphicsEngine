@@ -46,7 +46,13 @@ public class Point
 	{
 		return new Point (x-p.x, y-p.y, z-p.z);
 	}
-	
+	public double getDistance(Point p)
+	{
+		System.out.println("p1x: " + x + " p1y: " + y + "p1z: " + z);
+		System.out.println("p2x: " + p.x + " p2y: " + p.y + "p2z: " + p.z);
+		double distance = Math.sqrt(Math.pow((p.x-x),2)+ Math.pow((p.z-z), 2));
+		return distance;
+	}
 	Point cross (Point p)
 	{
 		return new Point (y*p.z-z*p.y, z*p.x-x*p.z, x*p.y-y*p.x);

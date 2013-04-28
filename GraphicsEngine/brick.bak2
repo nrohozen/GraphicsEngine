@@ -1,0 +1,28 @@
+p 4
+t Brick
+f 0 0 0 0
+f 1 0 1 0
+f 2 1 1 0
+f 3 1 0 0
+c 1 0 0 
+o 
+v 0 0 0
+n brick side 1
+r 0
+d 1 0 0
+o
+v 0 0 0
+n brick side 2
+r 90
+d 0 1 0
+o
+v 1 0 0
+n brick side 3
+r 90
+d 0 1 0
+o
+v 0 0 -1
+n brick side 4
+r 0 
+d 0 1 0
+

@@ -30,13 +30,14 @@ public class DebugView implements View
 		GL2 gl = drawable.getGL().getGL2();
 		GLU glu = new GLU ();
 		gl.glEnable(GL2.GL_SCISSOR_TEST);
-		gl.glScissor(250, 250, 250, 250);   //x y width height
+		gl.glScissor(300, 350, 200, 150);   //x y width height
 		gl.glMatrixMode(GL2.GL_MODELVIEW);
 		gl.glLoadIdentity();
 		
 		gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
 		//glu.gluPerspective(90, ((double)250)/((double)250), 0.0, 100.0);
-		gl.glViewport(250, 250, 250, 250);
+		//gl.glViewport(250/2, 250/2, 250/2, 250/2);
+		gl.glViewport(300, 350, 200, 150);
 		
 		/*
 		gl.glEnable(GL2.GL_SCISSOR_TEST);
@@ -48,7 +49,7 @@ public class DebugView implements View
 		
 		if (model.getPlayerX() != x || model.getPlayerY() != y || model.getPlayerZ () != z)
 		{
-			System.out.println ("X: " + model.getPlayerX() + ", Y: " + model.getPlayerY() + ", Z: " + model.getPlayerZ ());
+			//System.out.println ("X: " + model.getPlayerX() + ", Y: " + model.getPlayerY() + ", Z: " + model.getPlayerZ ());
 			x = model.getPlayerX();
 			y = model.getPlayerY();
 			z = model.getPlayerZ();
@@ -66,7 +67,8 @@ public class DebugView implements View
 		    // optionally set the color
 	
 		    renderer.setColor(1.0f, 0.0f, 0.0f, 1.0f);
-		    renderer.draw(text, 250, 250);
+		    renderer.draw(text, 225, 225);
+		   
 		    // ... more draw commands, color changes, etc.
 		    renderer.endRendering();
 		

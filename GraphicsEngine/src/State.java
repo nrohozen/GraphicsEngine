@@ -3,6 +3,8 @@ public class State
 {
 	private boolean isAlive;
 	private boolean explode;
+	private int health;
+	
 	
 	
 	
@@ -15,12 +17,16 @@ public class State
 	{
 		return isAlive;
 	}
+	
 	public void setExplode(boolean status)
 	{
 		explode = status;
 	}
+	
 	public boolean getExplode()
 	{
 		return explode;
 	}
+
+	
 }
